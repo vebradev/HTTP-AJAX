@@ -1,5 +1,5 @@
 import React from 'react';
-import FriendsContainer from './components/FriendsContainer';
+//import FriendsContainer from './components/FriendsContainer';
 import './App.css';
 
 function App() {

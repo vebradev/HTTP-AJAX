@@ -36,7 +36,16 @@ class FriendsContainer extends React.Component {
   render() {
     return (
       <div>
+        {this.state.loader && <span>Loading friends ...</span>}
+        {this.state.errorMsg && <span>{this.state.errorMsg}</span>}
 
+        {this.state.friends.map(friend => (
+          <div key={friend.id}>
+            <span>{friend.name}</span>
+            <span>{friend.age}</span>
+            <span>{friend.email}</span>
+          </div>
+        ))}
       </div>
     );
   }

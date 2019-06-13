@@ -1,116 +1,90 @@
 import React from "react";
-import axios from "axios";
 import styled from "styled-components";
 
-const StyledDiv = styled.div`
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  flex-direction: column;
-  margin: 100px auto 0 auto;
-  padding: 20px 0 20px;
-  width: fit-content;
-
-  border-radius: 8px;
-  background-color: #a7bcff;
-  border: 1px solid #8da8ff;
-  color: #000;
-
-  box-shadow: 0px 0px 40px 10px #c0cfff;
-
-  h2 {
-    font-size: 30px;
-    text-align: center;
-    font-weight: bold;
-    color: #fff;
-    padding: 0 0 20px 0;
-    border-bottom: 1px solid #5870cb3d;
-  }
-
-  div {
-    padding: 15px 40px;
-    border-bottom: 1px solid #5870cb3d;
-    transition: all 0.3s;
-
-    &:hover {
-      background-color: #fff;
-      border-bottom: 1px solid #fff;
-    }
-
-    span {
-      color: #000;
-    }
-
-    strong {
-      background-color: #f48fb1;
-      color: #fff;
-      margin: 0 5px;
-      padding: 4px;
-      font-size: 10px;
-      border-radius: 30px;
-    }
-
-    a {
-      color: #26418f;
-      text-decoration: none;
-      transition: all 0.3s;
-
-      &:hover {
-        color: #3454ff;
-      }
-    }
-  }
-`;
-
 class Friends extends React.Component {
-  state = {
-    friends: [],
-    loader: false,
-    errorMsg: ""
-  };
-
-  fetchData = () => {
-    axios
-      .get("http://localhost:5000/friends/")
-      .then(response => {
-        this.setState({
-          friends: response.data,
-          loader: true
-        });
-      })
-      .catch(error => {
-        this.setState({
-          errorMsg: error.message
-        });
-      })
-      .finally(() => {
-        this.setState({
-          loader: false
-        });
-      });
-  };
-
-  componentDidMount() {
-    this.fetchData();
-  }
-
   render() {
     return (
       <StyledDiv>
-        {this.state.loader && <span>Loading friends ...</span>}
-        {this.state.errorMsg && <span>{this.state.errorMsg}</span>}
+        {/* {this.props.loader && <span>Loading friends ...</span>}
+        {this.props.errorMsg && <span>{this.props.errorMsg}</span>} */}
 
-        <h2>FRIENDS</h2>
-
-        {this.state.friends.map(friend => (
+        {this.props.friends.map(friend => (
           <div key={friend.id}>
             <span>{friend.name}</span>
             <strong>{friend.age}</strong>
             <a href={`mailto:${friend.email}`}>{friend.email}</a>
+            <button value={friend.id} onClick={this.props.deleteData}>x</button>
           </div>
         ))}
       </StyledDiv>
     );
   }
 }
+
+const StyledDiv = styled.div`
+  color: #2b2e4a;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 18px;
+
+  div {
+    position: relative;
+    padding: 20px 60px;
+    border-top: 1px solid #903749;
+    transition: all 0.3s;
+    cursor: pointer;
+
+    &:last-child {
+      border-bottom: 1px solid #903749;
+    }
+
+    &:hover {
+      background-color: #fff;
+
+      button {
+        opacity: 1;
+      }
+
+      strong {
+        color: #fff;
+        transition: all 0.3s;
+      }
+    }
+  }
+
+  strong {
+    background-color: #2b2e4a;
+    padding: 6px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0 7px;
+    color: #e84545;
+  }
+
+  a {
+    color: #2b2e4a;
+  }
+
+  button {
+    background-color: #903749;
+    color: #e84545;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 0;
+    height: 58px;
+    width: 50px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    opacity: 0;
+
+    &:hover {
+      background-color: #2b2e4a;
+      color: #fff;
+    }
+  }
+`;
 
 export default Friends;

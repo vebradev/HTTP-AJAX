@@ -61,12 +61,13 @@ const StyledDiv = styled.div`
     padding: 15px 30px;
     border-radius: 4px;
     border: none;
-    color: #ffff;
+    color: #e84545;
     cursor: pointer;
     transition: all 0.3s;
 
     &:hover {
       background-color: #2b2e4a;
+      color: #fff;
     }
   }
 `;
